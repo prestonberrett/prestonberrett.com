@@ -1,46 +1,40 @@
-# Astro Starter Kit: Basics
+# prestonberrett.com
+
+This is the code for my personal website. It has three pages: Home, About and Contact.
+
+Built with [Astro](https://astro.build) 7 and plain scoped CSS (no CSS framework).
+
+## Getting started
+
+Requires Node 22.12+ and [pnpm](https://pnpm.io).
 
 ```sh
-pnpm create astro@latest -- --template basics
+pnpm install
+pnpm dev        # dev server at http://127.0.0.1:4321
+pnpm build      # production build to ./dist/
+pnpm preview    # preview the production build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+`pnpm dev` runs in the background. Use `pnpm astro dev stop`, `status` or `logs` to manage it.
 
-## 🚀 Project Structure
+### Viewing the dev server from another hostname
 
-Inside of your Astro project, you'll see the following folders and files:
+The dev server only accepts requests for hostnames it knows about. To open it at another hostname, such as a Tailscale `*.ts.net` address, put that hostname in a local `.env` file. The file is gitignored, so it isn't committed:
+
+```sh
+DEV_HOST=yourmachine.your-tailnet.ts.net
+```
+
+## Project structure
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+├── components/   Nav and Footer
+├── layouts/      Page shell, design tokens and shared styles
+└── pages/        index, about and contact (file-based routes)
+public/           Favicons and other static files
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Notes
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+`pnpm-workspace.yaml` pins `@astrojs/compiler-rs` to `0.5.2`, because version 0.5.3's Linux binary requires a CPU with AVX2 and crashes on older processors. Once a later release fixes this, the override can be removed.
