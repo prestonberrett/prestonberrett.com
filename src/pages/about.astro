@@ -1,0 +1,425 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const skills = {
+  'Languages & Frameworks': ['4D', 'Node.js', 'TypeScript', 'C#', 'ASP.NET', 'Python', 'PowerShell', 'HTML5', 'CSS', 'Lua'],
+  'Platforms & Tools': ['AWS', 'Terraform', 'Git', 'GitHub', 'CI/CD (GitHub Actions)', 'Agile/Scrum'],
+  'Databases': ['4D RDBMS', 'PostgreSQL', 'SQL Server'],
+  'AI Tools': ['Claude Code', 'GitHub Copilot'],
+};
+
+const experience = [
+  {
+    year: '2022 — Present',
+    role: 'Software Engineer',
+    company: 'UMB',
+    desc: 'Support and enhance the core 4D application while contributing to its migration to Node.js on AWS — updating TypeScript pages and provisioning AWS infrastructure with Terraform. Architected and solely maintain the 4D CI/CD pipeline, and serve as senior developer on a team of six, providing technical direction and mentorship.',
+  },
+  {
+    year: '2012 — 2022',
+    role: 'Application Developer',
+    company: 'UMB',
+    desc: 'Collaborated with the development, design, and product teams on business requirements. Developed and maintained the application in the 4D database IDE, including designing its relational database, and mentored junior developers as the team grew.',
+  },
+  {
+    year: '2011 — 2012',
+    role: 'Report Developer',
+    company: 'MarketStar',
+    desc: 'Developed SQL queries for Microsoft SQL Server databases used in SQL Server Reporting Services and Qlikview. Collaborated with the development team on relational databases and worked with multiple product owners to ensure client data accuracy.',
+  },
+];
+---
+
+<Layout title="About" description="Learn about Preston Berrett — software engineer with 14+ years of experience, and the story behind the work.">
+  <!-- ─── PAGE HERO ─── -->
+  <section class="page-hero">
+    <!-- Background decoration -->
+    <div class="hero-orb" aria-hidden="true"></div>
+
+    <div class="container">
+      <p class="eyebrow s1">About Me</p>
+      <h1 class="page-hero-title s2">
+        The Person<br /><em>Behind the Code</em>
+      </h1>
+    </div>
+  </section>
+
+  <!-- ─── BIO ─── -->
+  <section class="bio">
+    <div class="container bio-inner">
+      <div class="bio-text">
+        <p>
+          I'm Preston Berrett — a software engineer with 14 years of experience
+          designing and developing high-quality, robust software applications,
+          including database design and cloud migrations. I have a strong
+          foundation in computer science principles and I'm comfortable leading
+          teams, solving complex problems, and delivering scalable features.
+        </p>
+        <p>
+          Most of my career has been spent at UMB, where I've grown from
+          application developer to senior engineer — supporting the company's
+          core 4D application, contributing to its migration to Node.js on AWS,
+          and architecting the CI/CD pipeline that keeps deployments consistent
+          for the development team.
+        </p>
+        <p>
+          I also maintain the majority of the application's 300+ Excel and PDF
+          reports, relied on daily by roughly 250 accountants to generate and
+          validate financial data — and I serve as the senior developer on a
+          team of six, providing technical direction and mentorship.
+        </p>
+      </div>
+
+      <aside class="bio-aside">
+        <div class="bio-portrait" aria-hidden="true">
+          <div class="portrait-bg dot-grid"></div>
+          <div class="portrait-ring"></div>
+          <div class="portrait-diamond"></div>
+          <p class="portrait-initials">PB</p>
+        </div>
+
+        <ul class="bio-details">
+          <li>
+            <span class="detail-label">Based in</span>
+            <span class="detail-val">Utah, USA</span>
+          </li>
+          <li>
+            <span class="detail-label">Education</span>
+            <span class="detail-val">B.S. Computer Science, Weber State University</span>
+          </li>
+          <li>
+            <span class="detail-label">Available for</span>
+            <span class="detail-val">New opportunities</span>
+          </li>
+          <li>
+            <span class="detail-label">Email</span>
+            <a href="mailto:prestonberrett@gmail.com" class="detail-link">prestonberrett@gmail.com</a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ─── SKILLS ─── -->
+  <section class="skills">
+    <div class="container">
+      <h2 class="section-title">Tools & Technologies</h2>
+
+      <div class="skills-grid">
+        {Object.entries(skills).map(([category, items]) => (
+          <div class="skill-group">
+            <h3 class="skill-category">{category}</h3>
+            <div class="skill-tags">
+              {items.map(skill => <span class="tag">{skill}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EXPERIENCE ─── -->
+  <section class="experience">
+    <div class="container">
+      <h2 class="section-title">Experience</h2>
+
+      <ol class="timeline">
+        {experience.map((entry, i) => (
+          <li class="timeline-entry">
+            <div class="timeline-year">{entry.year}</div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <h3>{entry.role}</h3>
+                <span class="timeline-company">{entry.company}</span>
+              </div>
+              <p>{entry.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ─── VALUES ─── -->
+  <section class="values">
+    <div class="container">
+      <p class="eyebrow">What I Believe</p>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon" aria-hidden="true">◇</div>
+          <h3>Reliability First</h3>
+          <p>Roughly 250 accountants depend on the reports I maintain every day. When the work matters that much, it has to be right.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" aria-hidden="true">◇</div>
+          <h3>Automate the Repeatable</h3>
+          <p>I architected and maintain the CI/CD pipeline for our 4D platform so deployments stay consistent instead of manual and error-prone.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" aria-hidden="true">◇</div>
+          <h3>Mentorship Matters</h3>
+          <p>As senior developer for a team hired within the past year, I take technical direction and growing other engineers seriously.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" aria-hidden="true">◇</div>
+          <h3>Stay Current</h3>
+          <p>From legacy 4D systems to AWS and Terraform to AI-assisted tools like Claude Code, I keep learning whatever the work calls for.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* ─── PAGE HERO ─── */
+  .hero-orb {
+    position: absolute;
+    top: 0; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123, 58, 237, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ─── BIO ─── */
+  .bio { padding: clamp(3rem, 6vw, 5rem) 0; }
+  .bio-inner {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--sp-12) var(--sp-16);
+    align-items: start;
+  }
+
+  .bio-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+  }
+  .bio-text p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .bio-text em { color: var(--text); font-style: italic; }
+
+  /* Portrait placeholder */
+  .bio-portrait {
+    aspect-ratio: 1;
+    background: var(--bg-raised);
+    border: 1px solid var(--geo);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--sp-6);
+  }
+  .portrait-bg { position: absolute; inset: 0; opacity: 0.3; }
+  .portrait-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 140px; height: 140px;
+    border: 1px dashed var(--geo);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: orbitRing 20s linear infinite;
+  }
+  .portrait-diamond {
+    width: 60px; height: 60px;
+    background: var(--gold-glow);
+    border: 1px solid var(--gold);
+    transform: rotate(45deg);
+    position: relative;
+    z-index: 1;
+    animation: spinDiamond 8s linear infinite;
+  }
+  .portrait-initials {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--gold);
+    z-index: 2;
+    letter-spacing: 0.05em;
+  }
+
+  .bio-details {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+  .bio-details li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    padding-bottom: var(--sp-4);
+    border-bottom: 1px solid var(--geo);
+  }
+  .bio-details li:last-child { border-bottom: none; }
+  .detail-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .detail-val {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .detail-link {
+    font-size: 0.9rem;
+    color: var(--gold);
+    transition: opacity 200ms;
+  }
+  .detail-link:hover { opacity: 0.75; }
+
+  /* ─── SKILLS ─── */
+  .skills {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    border-top: 1px solid var(--geo);
+    background: var(--bg-raised);
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-8);
+  }
+  .skill-category {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: var(--sp-4);
+  }
+  .skill-tags { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+  /* ─── EXPERIENCE ─── */
+  .experience {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+  }
+  .timeline {
+    list-style: none;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 118px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold-dim) 10%, var(--gold-dim) 90%, transparent);
+  }
+  .timeline-entry {
+    display: grid;
+    grid-template-columns: 118px 1fr;
+    gap: 0 var(--sp-8);
+    padding-bottom: var(--sp-10);
+    position: relative;
+  }
+  .timeline-entry::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 114px;
+    width: 9px; height: 9px;
+    border: 1px solid var(--gold);
+    transform: rotate(45deg);
+    background: var(--bg);
+    z-index: 1;
+  }
+  .timeline-year {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    padding-top: var(--sp-1);
+    text-align: right;
+    padding-right: var(--sp-6);
+  }
+  .timeline-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-2);
+    flex-wrap: wrap;
+  }
+  .timeline-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .timeline-company {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .timeline-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ─── VALUES ─── */
+  .values {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    border-top: 1px solid var(--geo);
+    background: var(--bg-raised);
+  }
+  .values .eyebrow { margin-bottom: var(--sp-8); }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6);
+  }
+  .value-card {
+    padding: var(--sp-8);
+    background: var(--bg-subtle);
+    border: 1px solid var(--geo);
+    border-radius: 4px;
+    transition: border-color 250ms;
+  }
+  .value-card:hover { border-color: var(--gold-dim); }
+  .value-icon {
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: var(--sp-4);
+  }
+  .value-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: var(--sp-3);
+  }
+  .value-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .bio-inner { grid-template-columns: 1fr; }
+    .bio-aside { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); align-items: start; }
+    .bio-portrait { margin-bottom: 0; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+    .bio-aside { grid-template-columns: 1fr; }
+    .timeline::before { display: none; }
+    .timeline-entry { grid-template-columns: 1fr; gap: var(--sp-2); }
+    .timeline-entry::before { display: none; }
+    .timeline-year { text-align: left; padding-right: 0; }
+  }
+</style>

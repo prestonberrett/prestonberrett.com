@@ -1,11 +1,346 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Home" description="Preston Berrett — Software Engineer with 14+ years of experience building enterprise applications with 4D, Node.js, TypeScript, and AWS.">
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <!-- Geometric decoration -->
+    <div class="hero-geo" aria-hidden="true">
+      <div class="geo-ring geo-ring-1"></div>
+      <div class="geo-ring geo-ring-2"></div>
+      <div class="geo-ring geo-ring-3"></div>
+      <div class="geo-diamond"></div>
+    </div>
+
+    <!-- Dot grid background -->
+    <div class="hero-dots dot-grid" aria-hidden="true"></div>
+
+    <div class="container hero-content">
+      <p class="eyebrow s1">Software Engineer</p>
+
+      <h1 class="hero-name s2">
+        <span class="name-first">Preston</span>
+        <span class="name-last">Berrett<span class="name-dot">.</span></span>
+      </h1>
+
+      <p class="hero-sub s3">
+        I build and maintain enterprise software — from CI/CD pipelines<br />
+        to cloud migrations — with 14+ years in the field.
+      </p>
+
+      <div class="hero-actions s4">
+        <a href="/about" class="btn btn-primary">My Experience</a>
+        <a href="/contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-hint s5" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ─── QUICK NAV TEASERS ─── -->
+  <section class="teasers">
+    <div class="container">
+      <div class="teasers-grid">
+        <a href="/about" class="teaser-card">
+          <span class="teaser-num">01</span>
+          <div class="teaser-body">
+            <h3>About Me</h3>
+            <p>The story behind the code — background, values, and what drives the work.</p>
+          </div>
+          <span class="teaser-arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a href="/contact" class="teaser-card">
+          <span class="teaser-num">02</span>
+          <div class="teaser-body">
+            <h3>Contact</h3>
+            <p>Open to collaborations and conversations worth having.</p>
+          </div>
+          <span class="teaser-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT INTRO ─── -->
+  <section class="intro">
+    <div class="container intro-inner">
+      <div class="intro-text">
+        <p class="eyebrow">Who I Am</p>
+        <h2 class="section-title">
+          I build systems<br />
+          <em style="font-style: italic; color: var(--gold); font-weight: 300;">businesses run on</em>
+        </h2>
+        <p>
+          With 14 years of experience designing and developing robust software
+          applications — including database design and cloud migrations — I focus
+          on delivering scalable features and mentoring the teams that maintain them.
+        </p>
+        <a href="/about" class="link-arrow">
+          Learn more about me <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="intro-stats">
+        <div class="stat">
+          <div class="stat-num">14<span>+</span></div>
+          <div class="stat-label">Years of Experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">300<span>+</span></div>
+          <div class="stat-label">Reports Maintained</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">250</div>
+          <div class="stat-label">Accountants Supported Daily</div>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100svh;
+    padding-top: var(--nav-h);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-dots {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+  }
+
+  /* Concentric ring decoration */
+  .hero-geo {
+    position: absolute;
+    top: 50%;
+    right: -5%;
+    transform: translateY(-50%);
+    width: 560px;
+    height: 560px;
+    pointer-events: none;
+  }
+  .geo-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    border-radius: 50%;
+    border: 1px solid var(--geo);
+    transform: translate(-50%, -50%);
+  }
+  .geo-ring-1 {
+    width: 200px; height: 200px;
+    animation: pulseRing 4s ease-in-out infinite;
+  }
+  .geo-ring-2 {
+    width: 360px; height: 360px;
+    border-style: dashed;
+    opacity: 0.5;
+    animation: orbitRing 25s linear infinite;
+  }
+  .geo-ring-3 {
+    width: 520px; height: 520px;
+    opacity: 0.2;
+  }
+  .geo-diamond {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 80px; height: 80px;
+    background: var(--gold-glow);
+    border: 1px solid var(--gold);
+    transform: translate(-50%, -50%) rotate(45deg);
+    animation: spinDiamond 12s linear infinite;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding-top: var(--sp-12);
+    padding-bottom: var(--sp-12);
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    margin-top: var(--sp-4);
+  }
+  .name-first {
+    display: block;
+    font-size: clamp(4rem, 12vw, 9.5rem);
+    color: var(--text);
+  }
+  .name-last {
+    display: block;
+    font-size: clamp(4rem, 12vw, 9.5rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold);
+  }
+  .name-dot { color: var(--text); font-style: normal; font-weight: 900; }
+
+  .hero-sub {
+    margin-top: var(--sp-6);
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 50ch;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    margin-top: var(--sp-8);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: var(--sp-8);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-3);
+    color: var(--text-faint);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: fadeUp 2s ease-in-out infinite alternate;
+  }
+
+  /* ─── TEASERS ─── */
+  .teasers {
+    padding: var(--sp-16) 0;
+    border-top: 1px solid var(--geo);
+    border-bottom: 1px solid var(--geo);
+    background: var(--bg-raised);
+  }
+  .teasers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--geo);
+    border: 1px solid var(--geo);
+  }
+  .teaser-card {
+    background: var(--bg-raised);
+    padding: var(--sp-8) var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    position: relative;
+    transition: background 250ms;
+  }
+  .teaser-card:hover { background: var(--bg-subtle); }
+  .teaser-card:hover .teaser-arrow { transform: translateX(6px); color: var(--gold); }
+
+  .teaser-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--geo);
+    line-height: 1;
+  }
+  .teaser-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: var(--sp-2);
+  }
+  .teaser-body p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+  .teaser-arrow {
+    font-size: 1.2rem;
+    color: var(--text-faint);
+    transition: all 250ms var(--smooth);
+    margin-top: auto;
+  }
+
+  /* ─── INTRO ─── */
+  .intro {
+    padding: clamp(4rem, 8vw, 7rem) 0;
+  }
+  .intro-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--sp-12) var(--sp-16);
+    align-items: center;
+  }
+  .intro-text .section-title { margin-bottom: var(--sp-6); }
+  .intro-text p {
+    font-size: 1.02rem;
+    color: var(--text-muted);
+    max-width: 50ch;
+    line-height: 1.75;
+    margin-bottom: var(--sp-6);
+  }
+
+  .link-arrow {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    transition: gap 200ms;
+  }
+  .link-arrow:hover { gap: var(--sp-4); }
+  .link-arrow span { font-size: 1rem; }
+
+  .intro-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--text);
+  }
+  .stat-num span {
+    font-size: 2rem;
+    color: var(--gold);
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: var(--sp-1);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero-geo { display: none; }
+    .intro-inner { grid-template-columns: 1fr; }
+    .intro-stats { flex-direction: row; }
+  }
+  @media (max-width: 640px) {
+    .teasers-grid { grid-template-columns: 1fr; }
+    .intro-stats { flex-direction: column; }
+  }
+</style>

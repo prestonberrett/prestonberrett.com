@@ -1,0 +1,356 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact"
+  description="Get in touch with Preston Berrett — software engineer open to new opportunities and conversations worth having."
+>
+  <!-- ─── PAGE HERO ─── -->
+  <section class="page-hero">
+    <div class="hero-orb" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow s1">Get in Touch</p>
+      <h1 class="page-hero-title s2">
+        Let's Start<br /><em>a Conversation</em>
+      </h1>
+      <p class="hero-desc s3">
+        Open to new opportunities and conversations<br />
+        worth having.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT BODY ─── -->
+  <section class="contact">
+    <div class="container contact-inner">
+
+      <!-- ─── FORM ─── -->
+      <div class="form-col">
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Preston Berrett" required autocomplete="name" />
+            </div>
+            <div class="form-field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="hello@example.com" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="What's this about?" />
+          </div>
+
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" placeholder="Tell me about your project, role, or idea..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary submit-btn">
+            <span class="btn-text">Send Message</span>
+            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+
+          <!-- Success / error states -->
+          <div class="form-success" id="form-success" aria-live="polite">
+            <span class="success-diamond" aria-hidden="true"></span>
+            <div>
+              <p class="success-heading">Message sent!</p>
+              <p class="success-sub">I'll get back to you within a day or two.</p>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- ─── CONTACT INFO ─── -->
+      <aside class="info-col">
+        <!-- Spinning diamond decoration -->
+        <div class="info-geo" aria-hidden="true">
+          <div class="info-diamond"></div>
+          <div class="info-ring"></div>
+        </div>
+
+        <div class="info-block">
+          <h2>Direct Contact</h2>
+          <ul class="contact-links">
+            <li>
+              <span class="contact-link-label">Email</span>
+              <a href="mailto:prestonberrett@gmail.com" class="contact-link-val">
+                prestonberrett@gmail.com
+              </a>
+            </li>
+            <li>
+              <span class="contact-link-label">GitHub</span>
+              <a href="https://github.com/prestonberrett" target="_blank" rel="noopener noreferrer" class="contact-link-val">
+                github.com/prestonberrett
+              </a>
+            </li>
+            <li>
+              <span class="contact-link-label">LinkedIn</span>
+              <a href="https://www.linkedin.com/in/prestonberrett/" target="_blank" rel="noopener noreferrer" class="contact-link-val">
+                linkedin.com/in/prestonberrett
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="availability-badge">
+          <span class="avail-dot" aria-hidden="true"></span>
+          <span>Open to new opportunities</span>
+        </div>
+
+        <blockquote class="contact-quote">
+          "The best projects start with a clear problem and an open conversation."
+        </blockquote>
+      </aside>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form       = document.getElementById('contact-form') as HTMLFormElement | null;
+  const successMsg = document.getElementById('form-success');
+  const submitBtn  = form?.querySelector('.submit-btn') as HTMLButtonElement | null;
+  const btnText    = submitBtn?.querySelector('.btn-text');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Simulate sending (replace with real endpoint / Formspree)
+    if (submitBtn) submitBtn.disabled = true;
+    if (btnText) btnText.textContent = 'Sending…';
+
+    await new Promise(r => setTimeout(r, 1200));
+
+    form.style.display = 'none';
+    if (successMsg) successMsg.style.display = 'flex';
+  });
+</script>
+
+<style>
+  /* ─── PAGE HERO ─── */
+  .hero-orb {
+    position: absolute;
+    bottom: -100px; left: -200px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123, 58, 237, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-desc {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-top: var(--sp-5);
+    max-width: 46ch;
+  }
+
+  /* ─── CONTACT BODY ─── */
+  .contact { padding: var(--sp-12) 0 clamp(4rem, 8vw, 7rem); }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: var(--sp-12) var(--sp-16);
+    align-items: start;
+  }
+
+  /* ─── FORM ─── */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-4);
+  }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+  .form-field label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .form-field input,
+  .form-field textarea {
+    background: var(--bg-raised);
+    border: 1px solid var(--geo);
+    border-radius: 3px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: var(--sp-3) var(--sp-4);
+    outline: none;
+    transition: border-color 200ms, box-shadow 200ms;
+    resize: vertical;
+  }
+  .form-field input::placeholder,
+  .form-field textarea::placeholder {
+    color: var(--text-faint);
+  }
+  .form-field input:focus,
+  .form-field textarea:focus {
+    border-color: var(--gold-dim);
+    box-shadow: 0 0 0 3px var(--gold-glow);
+  }
+
+  .submit-btn {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-3);
+  }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  /* Success state */
+  .form-success {
+    display: none;
+    align-items: center;
+    gap: var(--sp-5);
+    padding: var(--sp-6);
+    background: var(--bg-raised);
+    border: 1px solid var(--gold-dim);
+    border-radius: 4px;
+    background: var(--gold-glow);
+  }
+  .success-diamond {
+    width: 24px; height: 24px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+  .success-heading {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: var(--sp-1);
+  }
+  .success-sub { font-size: 0.88rem; color: var(--text-muted); }
+
+  /* ─── INFO COL ─── */
+  .info-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+  }
+
+  .info-geo {
+    position: relative;
+    height: 120px;
+    margin-bottom: var(--sp-4);
+  }
+  .info-ring {
+    position: absolute;
+    top: 50%; left: 60px;
+    width: 100px; height: 100px;
+    border: 1px dashed var(--geo);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: orbitRing 18s linear infinite;
+  }
+  .info-diamond {
+    position: absolute;
+    top: 50%; left: 60px;
+    width: 40px; height: 40px;
+    background: var(--gold-glow);
+    border: 1px solid var(--gold);
+    transform: translate(-50%, -50%) rotate(45deg);
+    animation: spinDiamond 7s linear infinite;
+  }
+
+  .info-block h2 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: var(--sp-5);
+  }
+
+  .contact-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+  .contact-links li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    padding-bottom: var(--sp-4);
+    border-bottom: 1px solid var(--geo);
+  }
+  .contact-links li:last-child { border-bottom: none; }
+  .contact-link-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .contact-link-val {
+    font-size: 0.88rem;
+    color: var(--gold);
+    transition: opacity 200ms;
+    word-break: break-all;
+  }
+  .contact-link-val:hover { opacity: 0.75; }
+
+  .availability-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-5);
+    background: var(--bg-raised);
+    border: 1px solid var(--geo);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .avail-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 6px #22c55e;
+    flex-shrink: 0;
+    animation: pulseRing 2s ease-in-out infinite;
+  }
+
+  .contact-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding-left: var(--sp-5);
+    border-left: 2px solid var(--gold-dim);
+  }
+
+  @media (max-width: 900px) {
+    .contact-inner { grid-template-columns: 1fr; }
+    .info-col { order: -1; }
+  }
+  @media (max-width: 560px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
