@@ -99,6 +99,13 @@ const pageTitle =
   button { font-family: inherit; border: none; cursor: pointer; }
   ::selection { background: var(--gold); color: var(--bg); }
 
+  /* Visible focus ring for keyboard navigation */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }

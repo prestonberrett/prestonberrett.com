@@ -27,26 +27,31 @@ import Layout from '../layouts/Layout.astro';
 
       <!-- ─── FORM ─── -->
       <div class="form-col">
-        <form class="contact-form" id="contact-form" novalidate>
+        <form class="contact-form" id="contact-form" action="https://formspree.io/f/mbgoknyg" method="POST" novalidate>
           <div class="form-row">
             <div class="form-field">
               <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="Preston Berrett" required autocomplete="name" />
+              <input type="text" id="name" name="name" placeholder="Preston Berrett" required autocomplete="name" aria-describedby="name-error" />
+              <p class="field-error" id="name-error" hidden></p>
             </div>
             <div class="form-field">
               <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="hello@example.com" required autocomplete="email" />
+              <!-- pattern requires a dot in the domain; browsers otherwise accept "a@b", which Formspree rejects -->
+              <input type="email" id="email" name="email" placeholder="hello@example.com" required autocomplete="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" aria-describedby="email-error" />
+              <p class="field-error" id="email-error" hidden></p>
             </div>
           </div>
 
           <div class="form-field">
             <label for="subject">Subject</label>
-            <input type="text" id="subject" name="subject" placeholder="What's this about?" />
+            <input type="text" id="subject" name="subject" placeholder="What's this about?" aria-describedby="subject-error" />
+            <p class="field-error" id="subject-error" hidden></p>
           </div>
 
           <div class="form-field">
             <label for="message">Message</label>
-            <textarea id="message" name="message" rows="6" placeholder="Tell me about your project, role, or idea..." required></textarea>
+            <textarea id="message" name="message" rows="6" placeholder="Tell me about your project, role, or idea..." required aria-describedby="message-error"></textarea>
+            <p class="field-error" id="message-error" hidden></p>
           </div>
 
           <button type="submit" class="btn btn-primary submit-btn">
@@ -57,15 +62,17 @@ import Layout from '../layouts/Layout.astro';
             </svg>
           </button>
 
-          <!-- Success / error states -->
-          <div class="form-success" id="form-success" aria-live="polite">
-            <span class="success-diamond" aria-hidden="true"></span>
-            <div>
-              <p class="success-heading">Message sent!</p>
-              <p class="success-sub">I'll get back to you within a day or two.</p>
-            </div>
-          </div>
+          <p class="form-error" id="form-error" role="alert" hidden></p>
         </form>
+
+        <!-- Success state: lives outside the form so it stays visible when the form is hidden -->
+        <div class="form-success" id="form-success" tabindex="-1" aria-live="polite">
+          <span class="success-diamond" aria-hidden="true"></span>
+          <div>
+            <p class="success-heading">Message sent!</p>
+            <p class="success-sub">I'll get back to you within a day or two.</p>
+          </div>
+        </div>
       </div>
 
       <!-- ─── CONTACT INFO ─── -->
@@ -116,25 +123,117 @@ import Layout from '../layouts/Layout.astro';
 <script>
   const form       = document.getElementById('contact-form') as HTMLFormElement | null;
   const successMsg = document.getElementById('form-success');
+  const errorMsg   = document.getElementById('form-error');
   const submitBtn  = form?.querySelector('.submit-btn') as HTMLButtonElement | null;
   const btnText    = submitBtn?.querySelector('.btn-text');
 
+  type Field = HTMLInputElement | HTMLTextAreaElement;
+
+  const EMPTY_MESSAGES: Record<string, string> = {
+    name: 'Please enter your name.',
+    email: 'Please enter your email address.',
+    message: 'Please enter a message.',
+  };
+  const BAD_EMAIL = 'Please enter a valid email address, like name@example.com.';
+
+  function getField(name: string): Field | null {
+    const el = form?.elements.namedItem(name);
+    return el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement ? el : null;
+  }
+
+  function setFieldError(field: Field, message: string) {
+    const errEl = document.getElementById(`${field.id}-error`);
+    if (errEl) {
+      errEl.textContent = message;
+      errEl.hidden = !message;
+    }
+    if (message) field.setAttribute('aria-invalid', 'true');
+    else field.removeAttribute('aria-invalid');
+  }
+
+  function clearAllErrors() {
+    form?.querySelectorAll<Field>('input, textarea').forEach(f => setFieldError(f, ''));
+    if (errorMsg) errorMsg.hidden = true;
+  }
+
+  function clientError(field: Field): string {
+    const v = field.validity;
+    if (v.valueMissing) return EMPTY_MESSAGES[field.name] ?? 'This field is required.';
+    if (v.typeMismatch || v.patternMismatch) return field.name === 'email' ? BAD_EMAIL : 'Please check this field.';
+    return '';
+  }
+
+  // Shows each error under its field and focuses the first one. Returns true if any were shown.
+  function showErrors(errors: { field: Field; message: string }[]): boolean {
+    errors.forEach(({ field, message }) => setFieldError(field, message));
+    errors[0]?.field.focus();
+    return errors.length > 0;
+  }
+
+  // Clear a field's error as soon as the user edits it
+  form?.addEventListener('input', (e) => {
+    const t = e.target;
+    if ((t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement) && t.hasAttribute('aria-invalid')) {
+      setFieldError(t, '');
+    }
+  });
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    clearAllErrors();
 
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
+    const invalid = Array.from(form.querySelectorAll<Field>('input, textarea'))
+      .map(field => ({ field, message: clientError(field) }))
+      .filter(x => x.message);
+    if (showErrors(invalid)) return;
 
-    // Simulate sending (replace with real endpoint / Formspree)
     if (submitBtn) submitBtn.disabled = true;
     if (btnText) btnText.textContent = 'Sending…';
 
-    await new Promise(r => setTimeout(r, 1200));
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        const errors: { field?: string; code?: string; message?: string }[] = data?.errors ?? [];
 
-    form.style.display = 'none';
-    if (successMsg) successMsg.style.display = 'flex';
+        // Formspree tags field problems with the field name; show those next to the field
+        const fieldErrors = errors.flatMap(err => {
+          const field = err.field ? getField(err.field) : null;
+          if (!field) return [];
+          const label = form.querySelector(`label[for="${field.id}"]`)?.textContent ?? field.name;
+          const message = err.code === 'TYPE_EMAIL' ? BAD_EMAIL : `${label}: ${err.message}`;
+          return [{ field, message }];
+        });
+        const formErrors = errors.filter(err => !err.field || !getField(err.field));
+
+        showErrors(fieldErrors);
+        if (formErrors.length || !fieldErrors.length) {
+          throw new Error(formErrors.map(x => x.message).filter(Boolean).join(' '));
+        }
+        if (submitBtn) submitBtn.disabled = false;
+        if (btnText) btnText.textContent = 'Send Message';
+        return;
+      }
+      form.style.display = 'none';
+      if (successMsg) {
+        successMsg.style.display = 'flex';
+        // Move focus off the now-hidden submit button so keyboard users land on the confirmation
+        successMsg.focus();
+      }
+    } catch (err) {
+      if (errorMsg) {
+        errorMsg.textContent =
+          (err instanceof Error && err.message) ||
+          'Something went wrong. Please try again, or email me directly.';
+        errorMsg.hidden = false;
+      }
+      if (submitBtn) submitBtn.disabled = false;
+      if (btnText) btnText.textContent = 'Send Message';
+    }
   });
 </script>
 
@@ -210,6 +309,18 @@ import Layout from '../layouts/Layout.astro';
     border-color: var(--gold-dim);
     box-shadow: 0 0 0 3px var(--gold-glow);
   }
+  .form-field input[aria-invalid="true"],
+  .form-field textarea[aria-invalid="true"] {
+    border-color: #ff9b9b;
+  }
+  .form-field input[aria-invalid="true"]:focus,
+  .form-field textarea[aria-invalid="true"]:focus {
+    box-shadow: 0 0 0 3px rgba(255, 155, 155, 0.2);
+  }
+  .field-error {
+    font-size: 0.82rem;
+    color: #ff9b9b;
+  }
 
   .submit-btn {
     align-self: flex-start;
@@ -220,6 +331,12 @@ import Layout from '../layouts/Layout.astro';
   .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
   /* Success state */
+  .form-error {
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    color: #ff9b9b;
+  }
+
   .form-success {
     display: none;
     align-items: center;
@@ -230,6 +347,7 @@ import Layout from '../layouts/Layout.astro';
     border-radius: 4px;
     background: var(--gold-glow);
   }
+  .form-success:focus { outline: none; }
   .success-diamond {
     width: 24px; height: 24px;
     background: var(--gold);
