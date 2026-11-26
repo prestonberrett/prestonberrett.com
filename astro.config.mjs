@@ -9,7 +9,9 @@ try {
 // https://astro.build/config
 export default defineConfig({
   server: {
-    host: '127.0.0.1',
+    // Defaults to loopback only. Set DEV_BIND=0.0.0.0 in .env when running
+    // inside a Docker container (see .env for why).
+    host: process.env.DEV_BIND || '127.0.0.1',
     allowedHosts: process.env.DEV_HOST ? [process.env.DEV_HOST] : [],
   },
 });
