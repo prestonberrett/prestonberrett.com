@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout
   title="Contact"
-  description="Get in touch with Preston Berrett — software engineer open to new opportunities and conversations worth having."
+  description="Get in touch with Preston Berrett, software engineer."
 >
   <!-- ─── PAGE HERO ─── -->
   <section class="page-hero">
@@ -15,8 +15,7 @@ import Layout from '../layouts/Layout.astro';
         Let's Start<br /><em>a Conversation</em>
       </h1>
       <p class="hero-desc s3">
-        Open to new opportunities and conversations<br />
-        worth having.
+        Email me directly or send a message below.
       </p>
     </div>
   </section>
@@ -31,7 +30,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="form-row">
             <div class="form-field">
               <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="Preston Berrett" required autocomplete="name" aria-describedby="name-error" />
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required autocomplete="name" aria-describedby="name-error" />
               <p class="field-error" id="name-error" hidden></p>
             </div>
             <div class="form-field">
@@ -105,11 +104,6 @@ import Layout from '../layouts/Layout.astro';
               </a>
             </li>
           </ul>
-        </div>
-
-        <div class="availability-badge">
-          <span class="avail-dot" aria-hidden="true"></span>
-          <span>Open to new opportunities</span>
         </div>
 
         <blockquote class="contact-quote">
@@ -431,27 +425,6 @@ import Layout from '../layouts/Layout.astro';
     word-break: break-all;
   }
   .contact-link-val:hover { opacity: 0.75; }
-
-  .availability-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--sp-3);
-    padding: var(--sp-3) var(--sp-5);
-    background: var(--bg-raised);
-    border: 1px solid var(--geo);
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--text-muted);
-  }
-  .avail-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #22c55e;
-    box-shadow: 0 0 6px #22c55e;
-    flex-shrink: 0;
-    animation: pulseRing 2s ease-in-out infinite;
-  }
 
   .contact-quote {
     font-family: var(--font-display);
