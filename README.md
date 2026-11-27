@@ -11,6 +11,7 @@ Requires Node 22.12+ and [pnpm](https://pnpm.io).
 ```sh
 pnpm install
 pnpm dev        # dev server at http://127.0.0.1:4321
+pnpm check      # type-check .astro and .ts files (also runs in CI)
 pnpm build      # production build to ./dist/
 pnpm preview    # preview the production build
 ```

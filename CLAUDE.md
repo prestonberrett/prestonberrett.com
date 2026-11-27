@@ -6,6 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 pnpm dev       # Start dev server at localhost:4321
+pnpm check     # Type-check (runs in CI on every push and PR)
 pnpm build     # Build production site to ./dist/
 pnpm preview   # Preview production build locally
 ```
