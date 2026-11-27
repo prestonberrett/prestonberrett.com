@@ -57,8 +57,8 @@ const pageTitle =
     --gold-glow: rgba(219, 165, 32, 0.15);
 
     --text:       #e8dff5;
-    --text-muted: #9988bb;
-    --text-faint: #5a4a72;
+    --text-muted: #b7a9d1;
+    --text-faint: #a89cba;
 
     --geo:      rgba(219, 165, 32, 0.2);
     --geo-fill: rgba(219, 165, 32, 0.04);
@@ -136,6 +136,18 @@ const pageTitle =
   .s4 { animation: fadeUp 0.9s var(--spring) both; animation-delay: 480ms; }
   .s5 { animation: fadeUp 0.9s var(--spring) both; animation-delay: 620ms; }
   .s6 { animation: fadeUp 0.9s var(--spring) both; animation-delay: 780ms; }
+
+  /* Respect the OS "reduce motion" setting: no spinning or pulsing decorations,
+   * no entrance animations, no smooth scrolling. Elements jump to their final state. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 
   /* ─────────────────────────────────────────────────
    * LAYOUT
