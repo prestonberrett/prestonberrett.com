@@ -35,3 +35,14 @@ src/
 └── pages/        index, about and contact (file-based routes)
 public/           Favicons and other static files
 ```
+
+## Deployment
+
+Every push to `main` runs CI (`.github/workflows/ci.yml`): type check, build, then deploy `dist/` to the Cloudflare Pages project `prestonberrett` with wrangler. Pull requests run the check and build only.
+
+The deploy step needs two repository secrets:
+
+- `CLOUDFLARE_API_TOKEN`: an API token with the **Account > Cloudflare Pages > Edit** permission.
+- `CLOUDFLARE_ACCOUNT_ID`: the Cloudflare account ID.
+
+The first deploy creates the Pages project if it doesn't exist yet.
