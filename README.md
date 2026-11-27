@@ -34,7 +34,3 @@ src/
 └── pages/        index, about and contact (file-based routes)
 public/           Favicons and other static files
 ```
-
-## Notes
-
-`pnpm-workspace.yaml` pins `@astrojs/compiler-rs` to `0.5.2`, because version 0.5.3's Linux binary requires a CPU with AVX2 and crashes on older processors. Once a later release fixes this, the override can be removed.
